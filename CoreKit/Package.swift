@@ -16,6 +16,10 @@ let package = Package(
 		.library(
 			name: "CoreTypes",
 			targets: ["CoreTypes"]
+		),
+		.library(
+			name: "CoreUtils",
+			targets: ["CoreUtils"]
 		)
 	],
 	dependencies: [],
@@ -27,6 +31,14 @@ let package = Package(
 		.testTarget(
 			name: "CoreTypesTests",
 			dependencies: ["CoreTypes"]
+		),
+		.target(
+			name: "CoreUtils",
+			dependencies: ["CoreTypes"]
+		),
+		.testTarget(
+			name: "CoreUtilsTests",
+			dependencies: ["CoreUtils"]
 		)
 	]
 )
