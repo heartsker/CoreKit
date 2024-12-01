@@ -2,8 +2,6 @@
 //  Created by Daniel Pustotin on 24.04.2024.
 //
 
-import Base
-
 public typealias Loadable = Codable & Loggable
 
 public protocol Loader {

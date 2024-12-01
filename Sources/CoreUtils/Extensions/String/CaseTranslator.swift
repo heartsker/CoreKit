@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 07.08.2024.
 //
 
+import Foundation
+
 public extension String {
     /// Converts a camel cased string to snake case
     /// - Note: `camelCaseToSnakeCase` -> `camel_case_to_snake_case`
@@ -23,7 +25,7 @@ public extension String {
     /// Converts a snake cased string to camel case
     /// - Note: `snake_case_to_camel_case` -> `snakeCaseToCamelCase`
     var snakeCaseToCamelCase: String {
-        components(separatedBy: .snakeCaseSeparator)
+        components(separatedBy: CharacterSet(charactersIn: .snakeCaseSeparator))
             .enumerated()
             .reduce("") { result, tuple in
                 let (index, component) = tuple

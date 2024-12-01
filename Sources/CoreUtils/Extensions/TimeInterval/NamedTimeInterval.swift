@@ -50,7 +50,10 @@ public struct NamedTimeInterval: Hashable, Codable {
     }
 
     init?(interval: TimeInterval) {
-        self = interval.namedInterval
+        guard let namedInterval = interval.namedInterval else {
+            return nil
+        }
+        self = namedInterval
     }
 }
 

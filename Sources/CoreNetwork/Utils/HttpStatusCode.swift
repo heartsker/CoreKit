@@ -2,8 +2,6 @@
 //  Created by Daniel Pustotin on 04.05.2024.
 //
 
-import Base
-
 public enum HttpStatusCode: Int {
     case ok = 200
     case accepted = 202

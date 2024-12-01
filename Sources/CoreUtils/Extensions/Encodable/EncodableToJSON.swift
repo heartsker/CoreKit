@@ -18,6 +18,6 @@ public extension Encodable {
             )
             throw DecodingError.typeMismatch(type(of: object), context)
         }
-        return json
+        return json as Any
     }
 }

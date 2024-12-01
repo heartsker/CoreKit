@@ -44,7 +44,7 @@ public extension UID {
     }
 }
 
-extension UID: Identifiable {
+extension UID: @retroactive Identifiable {
     public var id: Self {
         self
     }

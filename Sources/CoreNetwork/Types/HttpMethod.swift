@@ -2,8 +2,6 @@
 //  Created by Daniel Pustotin on 12.03.2023.
 //
 
-import Base
-
 public enum HttpMethod: String {
     case get = "GET"
     case post = "POST"

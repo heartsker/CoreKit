@@ -7,10 +7,7 @@ import PackageDescription
 let package = Package(
 	name: "CoreKit",
 	platforms: [
-		.macOS(.v10_15),
-		.iOS(.v13),
-		.tvOS(.v13),
-		.watchOS(.v6)
+		.iOS(.v16)
 	],
 	products: [
 		.library(
@@ -20,6 +17,10 @@ let package = Package(
 		.library(
 			name: "CoreUtils",
 			targets: ["CoreUtils"]
+		),
+		.library(
+			name: "CoreUI",
+			targets: ["CoreUI"]
 		),
 		.library(
 			name: "Logger",
@@ -36,10 +37,15 @@ let package = Package(
 		.library(
 			name: "CoreNetwork",
 			targets: ["CoreNetwork"]
-		)
+		),
+        .library(
+            name: "CoreRedux",
+            targets: ["CoreRedux"]
+        )
 	],
 	dependencies: [
-		.package(url: "https://github.com/ReactiveX/RxSwift.git", branch: "main")
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", branch: "main"),
+        .package(url: "https://github.com/uber/needle.git", branch: "master")
 	],
 	targets: [
 		.target(
@@ -48,23 +54,19 @@ let package = Package(
 		),
 		.testTarget(
 			name: "CoreTypesTests",
-			dependencies: ["CoreTypes"]
+            dependencies: ["CoreTypes"]
 		),
 		.target(
 			name: "CoreUtils",
-			dependencies: ["CoreTypes"]
+			dependencies: ["CoreTypes", "RxSweet"]
 		),
-		.testTarget(
-			name: "CoreUtilsTests",
-			dependencies: ["CoreUtils"]
+		.target(
+			name: "CoreUI",
+			dependencies: ["CoreTypes"]
 		),
 		.target(
 			name: "Logger",
 			dependencies: ["CoreTypes"]
-		),
-		.testTarget(
-			name: "LoggerTests",
-			dependencies: ["Logger"]
 		),
 		.target(
 			name: "RxSweet",
@@ -75,19 +77,12 @@ let package = Package(
 				.product(name: "RxRelay", package: "RxSwift")
 			]
 		),
-		.testTarget(
-            name: "RxSweetTests",
-            dependencies: ["RxSweet"]
-        ),
 		.target(
             name: "NeedleDI",
             dependencies: [
-                "Logger"
+                "Logger",
+                .product(name: "NeedleFoundation", package: "needle")
             ]
-        ),
-        .testTarget(
-            name: "NeedleDITests",
-            dependencies: ["NeedleDI"]
         ),
 		.target(
 			name: "CoreNetwork",
@@ -97,9 +92,11 @@ let package = Package(
 				"Logger"
 			]
 		),
-		.testTarget(
-			name: "CoreNetworkTests",
-			dependencies: ["CoreNetwork"]
-		)
+        .target(
+            name: "CoreRedux",
+            dependencies: [
+                "Logger"
+            ]
+        )
 	]
 )

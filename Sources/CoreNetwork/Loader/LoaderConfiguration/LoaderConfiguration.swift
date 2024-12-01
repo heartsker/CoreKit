@@ -2,8 +2,6 @@
 //  Created by Daniel Pustotin on 16.07.2023.
 //
 
-import Base
-
 /// Declares configuration for loading process
 public protocol LoaderConfiguration {
     /// Should store and use restored network response

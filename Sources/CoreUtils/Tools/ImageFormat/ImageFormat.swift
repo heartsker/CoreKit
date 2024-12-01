@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 02.07.2024
 //
 
+import Foundation
+
 public enum ImageFormat {
     case png
     case jpeg
