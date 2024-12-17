@@ -2,13 +2,13 @@
 //  Created by Daniel Pustotin on 24.12.2022.
 //
 
-import CommonTypes
+import CoreTypes
 import SwiftUI
 
 public struct URLImageView: View {
     // MARK: - Constructor
 
-    public init(url: String) {
+    public init(url: URL?) {
         self.url = url
     }
 
@@ -17,17 +17,17 @@ public struct URLImageView: View {
     public var body: some View {
         LoadingImage(image)
             .onAppear {
-                load()
+                Task {
+                    await load()
+                }
             }
     }
 
     // MARK: - Private methods
 
-    private func load() {
-        guard let url = URL(string: url) else {
-            return
-        }
-        if let uiImage = ImageCache.shared.get(for: url.absoluteString) {
+    private func load() async {
+        guard let url else { return }
+        if let uiImage = await ImageCache.shared.get(for: url.absoluteString) {
             self.image = Image(uiImage: uiImage)
             return
         }
@@ -39,7 +39,7 @@ public struct URLImageView: View {
             let task: Task<UIImage?, Never> = Task { @MainActor in
                 if let uiImage = UIImage(data: data) {
                     self.image = Image(uiImage: uiImage)
-                    // ImageCache.shared.set(for: url.absoluteString, image: uiImage)
+                    await ImageCache.shared.set(for: url.absoluteString, image: uiImage)
                     return uiImage
                 }
                 return nil
@@ -49,7 +49,7 @@ public struct URLImageView: View {
                 guard let uiImage = await task.value else {
                     return
                 }
-                ImageCache.shared.set(for: url.absoluteString, image: uiImage)
+                await ImageCache.shared.set(for: url.absoluteString, image: uiImage)
             }
         }
         .resume()

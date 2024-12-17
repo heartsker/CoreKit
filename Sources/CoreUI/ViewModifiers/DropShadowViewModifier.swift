@@ -13,7 +13,7 @@ private struct DropShadowViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .shadow(color: Palette.commonShadow, radius: radius, x: .zero, y: radius / 4)
+            .shadow(color: Palette.shadow, radius: radius, x: .zero, y: radius / 4)
     }
 }
 

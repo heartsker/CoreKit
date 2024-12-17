@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 15.05.2023.
 //
 
-protocol Endpoint: Loggable {
+protocol Endpoint: Loggable, Sendable {
     var component: EndpointComponent { get }
 
     static var baseEndpoint: BaseEndpoint? { get }

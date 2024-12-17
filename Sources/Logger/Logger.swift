@@ -9,7 +9,7 @@ import os
 public let logger = Logger.shared // swiftlint:disable:this prefixed_toplevel_constant
 
 /// Logs messages
-final public class Logger {
+final public class Logger: Sendable {
     // MARK: - Public properties
 
     /// Shared instance of ``Logger``

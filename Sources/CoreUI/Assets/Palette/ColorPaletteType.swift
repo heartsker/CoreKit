@@ -4,6 +4,6 @@
 
 import SwiftUI
 
-public enum ColorPaletteType: String {
+public enum ColorPaletteType: String, Sendable {
     case `default` = ""
 }

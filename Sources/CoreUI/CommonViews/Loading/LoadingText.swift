@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 08.06.2023.
 //
 
-import CommonUtils
+import CoreUtils
 import SwiftUI
 
 // swiftlint:disable:next swiftui_views_naming

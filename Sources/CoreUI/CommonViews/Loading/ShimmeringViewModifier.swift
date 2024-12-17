@@ -63,8 +63,8 @@ private struct ShimmeringViewModifier: ViewModifier {
 
         private static let duration: TimeInterval = 2
         private static let bandSize: CGFloat = 0.7
-        private static let edgeColor = Palette.commonShadow.opacity(0.5)
-        private static let centerColor = Palette.commonShadow
+        private static let edgeColor = Palette.shadow.opacity(0.5)
+        private static let centerColor = Palette.shadow
     }
 }
 

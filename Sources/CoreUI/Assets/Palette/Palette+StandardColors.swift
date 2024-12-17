@@ -10,37 +10,16 @@ public extension Palette {
     /// - Returns: Color
     static func standard(_ name: String) -> Color {
         switch name {
-        case Color.gray.description:
-            return .gray
-
-        case Color.brown.description:
-            return .brown
-
-        case Color.orange.description:
-            return .orange
-
-        case Color.yellow.description:
-            return .yellow
-
-        case Color.green.description:
-            return .green
-
-        case Color.blue.description:
-            return .blue
-
-        case Color.purple.description:
-            return .purple
-
-        case Color.pink.description:
-            return .pink
-
-        case Color.red.description:
-            return .red
-        case "default":
-            return foregroundPrimary
-
-        default:
-            return .clear
+        case Color.gray.description: .gray
+        case Color.brown.description: .brown
+        case Color.orange.description: .orange
+        case Color.yellow.description: .yellow
+        case Color.green.description: .green
+        case Color.blue.description: .blue
+        case Color.purple.description: .purple
+        case Color.pink.description: .pink
+        case Color.red.description: .red
+        default: .clear
         }
     }
 }

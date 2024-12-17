@@ -19,71 +19,73 @@ final class RequestBuilder {
 
     @discardableResult
     func with(method: HttpMethod) -> RequestBuilder {
-        backendRequest.apply { $0.method = method }
+        backendRequest = backendRequest.copy(method: method)
         return self
     }
 
     @discardableResult
-    func with(data: Encodable?) -> RequestBuilder {
-        backendRequest.apply { $0.data = data }
+    func with(data: RequestDataRepresentable?) -> RequestBuilder {
+        backendRequest = backendRequest.copy(data: data)
         return self
     }
 
     @discardableResult
     func with(contentType: RequestContentType) -> RequestBuilder {
-        backendRequest.apply { $0.contentType = contentType }
+        backendRequest = backendRequest.copy(contentType: contentType)
         return self
     }
 
     @discardableResult
     func with(queryItem name: String, value: CustomStringConvertible?) -> RequestBuilder {
-        backendRequest.apply { request in
-            request.queryItems.append(
-                URLQueryItem(name: name, value: value?.description)
-            )
-        }
+        var queryItems = backendRequest.queryItems
+        queryItems.append(
+            URLQueryItem(name: name, value: value?.description)
+        )
+        backendRequest = backendRequest.copy(queryItems: queryItems)
         return self
     }
 
     @discardableResult
     func with(queryItems: [URLQueryItem]) -> RequestBuilder {
-        backendRequest.apply { $0.queryItems = queryItems }
+        backendRequest = backendRequest.copy(queryItems: queryItems)
         return self
     }
 
     @discardableResult
     func with(header: String, value: String) -> RequestBuilder {
-        backendRequest.apply { $0.headers[header] = value }
+        var headers = backendRequest.headers
+        headers[header] = value
+        backendRequest = backendRequest.copy(headers: headers)
         return self
     }
 
     @discardableResult
     func with(headers: [String: String]) -> RequestBuilder {
-        backendRequest.apply { $0.headers = headers }
+        backendRequest = backendRequest.copy(headers: headers)
         return self
     }
 
     @discardableResult
     func with(timeout: TimeInterval) -> RequestBuilder {
-        backendRequest.apply { $0.timeout = timeout }
+        backendRequest = backendRequest.copy(timeout: timeout)
         return self
     }
 
     @discardableResult
     func with(attachSession: Bool) -> RequestBuilder {
-        backendRequest.apply { $0.attachSession = attachSession }
+        backendRequest = backendRequest.copy(attachSession: attachSession)
         return self
     }
 
     @discardableResult
     func with(explicitSession: AuthSession) -> RequestBuilder {
-        backendRequest.apply { $0.explicitSession = explicitSession }
+        backendRequest = backendRequest.copy(explicitSession: explicitSession)
         return self
     }
 
     @discardableResult
     func with(retriesStrategy: RetryStrategy) -> RequestBuilder {
-        backendRequest.apply { $0.retriesStrategy = retriesStrategy }
+        backendRequest = backendRequest.copy(retriesStrategy: retriesStrategy)
         return self
     }
 

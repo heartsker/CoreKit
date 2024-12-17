@@ -2,12 +2,12 @@
 //  Created by Daniel Pustotin on 03.07.2022.
 //
 
-import CommonTypes
-import CommonUtils
+import CoreTypes
+import CoreUtils
 import SwiftUI
 
 /// Assets manager
-public enum Imaginator {
+public enum Imaginator: @unchecked Sendable {
     // MARK: - Public methods
 
     /// Returns image in current module bundle
@@ -31,7 +31,7 @@ public enum Imaginator {
     /// - Parameters:
     ///   - imageData: Image data
     /// - Returns: Image from cache or newly created and saved image
-    public static func image(_ imageData: ImageData?, placeholderImage: Image? = nil) -> Image {
+    public static func image(_ imageData: ImageData?, placeholderImage: Image? = nil) async -> Image {
         let placeholderImage = placeholderImage ?? Image()
 
         guard let imageData else {
@@ -42,21 +42,17 @@ public enum Imaginator {
             return Image(data: imageData.data, default: placeholderImage)
         }
 
-        if lock.locked(images[imageData.id]) == nil {
-            let image = Image(data: imageData.data, default: placeholderImage)
-            lock.locked {
-                images[imageData.id] = image
-            }
-            return image
+        if let cachedImage = await cache.getImage(for: imageData.id) {
+            return cachedImage
         }
 
-        let savedImage = lock.locked(images[imageData.id])
+        let image = Image(data: imageData.data, default: placeholderImage)
+        await cache.saveImage(image, for: imageData.id)
 
-        return savedImage ?? placeholderImage
+        return image
     }
 
     // MARK: - Private properties
 
-    private static var images: [UID: Image] = [:]
-    private static let lock = UnfairLock()
+    private static let cache = ImageCacheActor()
 }

@@ -3,7 +3,7 @@
 //
 
 public struct ObjectLoadedEvent: AnalyticsEvent {
-    public enum Source: String {
+    public enum Source: String, Sendable {
         case web
         case storage
     }

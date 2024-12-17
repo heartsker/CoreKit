@@ -3,7 +3,7 @@
 //
 
 class LoggingMiddleware: Middleware {
-    func interfere(store: any StoreProtocol, next: @escaping Dispatch) -> Dispatch {
+    func interfere(store: any StoreRepresentable, next: @escaping Dispatch) -> Dispatch {
         { action in
             next(action)
             logger.debug("Action: \(action)")

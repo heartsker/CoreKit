@@ -8,7 +8,7 @@ import SwiftUI
 public struct AlertAction {
     // MARK: - Public properties
 
-    static let cancel = Self(title: "Cancel", role: .cancel, action: nil)
+    @MainActor static let cancel = Self(title: "Cancel", role: .cancel, action: nil)
 
     public let title: String
     public let role: ButtonRole?

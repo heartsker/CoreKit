@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 04.05.2024.
 //
 
-public enum HttpStatusCode: Int {
+public enum HttpStatusCode: Int, Sendable {
     case ok = 200
     case accepted = 202
 

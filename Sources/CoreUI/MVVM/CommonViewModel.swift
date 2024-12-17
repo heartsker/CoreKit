@@ -4,11 +4,12 @@
 //  "i dont know how to do this shit but my bf does it very well because he is the best developer that i ever knew" © Ann
 //
 
-import CommonTypes
+import CoreTypes
 import Logger
 import RxSweet
 import SwiftUI
 
+@MainActor
 open class CommonViewModel: RxObservableObject, Identifiable {
     // MARK: - Public nesting
 

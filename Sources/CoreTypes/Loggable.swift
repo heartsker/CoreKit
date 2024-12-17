@@ -5,7 +5,7 @@
 public typealias LoggableInfo = [String: CustomStringConvertible?]
 
 /// Type that supports logging
-public protocol Loggable {
+public protocol Loggable: Sendable {
     /// Object description for logging
     var logDescription: String { get }
 

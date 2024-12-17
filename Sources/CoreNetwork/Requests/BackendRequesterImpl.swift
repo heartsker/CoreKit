@@ -38,7 +38,7 @@ final public class BackendRequesterImpl: NSObject, BackendRequester, URLSessionD
             return .success(mockResponseData)
         }
 
-        let (urlRequest, data) = try enrichWithSession(request)
+        let (urlRequest, data) = try await enrichWithSession(request)
 
         return await Task<Data, Error>.retrying(
             retryStrategy: request.retriesStrategy
@@ -68,11 +68,11 @@ final public class BackendRequesterImpl: NSObject, BackendRequester, URLSessionD
 
     // MARK: - Private methods
 
-    private func enrichWithSession(_ request: BackendRequest) throws -> (URLRequest, Data?) {
-        var (urlRequest, data) = try request.buildURLRequest()
+    private func enrichWithSession(_ request: BackendRequest) async throws -> (URLRequest, Data?) {
+        var (urlRequest, data) = try await request.buildURLRequest()
 
-        if request.attachSession {
-            guard let token = request.explicitSession?.token ?? authSessionHolder.session?.token else {
+        if await request.attachSession {
+            guard let token = await request.explicitSession?.token ?? authSessionHolder.session?.token else {
                 throw BackendRequesterError.noSession
             }
 

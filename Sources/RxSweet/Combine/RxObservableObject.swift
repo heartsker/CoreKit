@@ -27,12 +27,8 @@ open class RxObservableObject: ObservableObject {
 
     private func setupChangesSubscription() {
         objectChanges
-            .sink {
-                Task {
-                    await MainActor.run {
-                        self.objectWillChange.send()
-                    }
-                }
+            .sink { [weak self] in
+                self?.objectWillChange.send()
             }
             .disposed(by: disposeBag)
     }

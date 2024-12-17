@@ -1,7 +1,6 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(
@@ -10,6 +9,11 @@ let package = Package(
 		.iOS(.v16)
 	],
 	products: [
+        // Umbrella library, which includes all other libraries
+        .library(
+            name: "CoreKit",
+            targets: ["CoreKit"]
+        ),
 		.library(
 			name: "CoreTypes",
 			targets: ["CoreTypes"]
@@ -47,11 +51,22 @@ let package = Package(
         .package(url: "https://github.com/ReactiveX/RxSwift.git", branch: "main"),
         .package(url: "https://github.com/uber/needle.git", branch: "master")
 	],
-	targets: [
-		.target(
-			name: "CoreTypes",
-			dependencies: []
-		),
+    targets: [
+        // Umbrella target
+        .target(
+            name: "CoreKit",
+            dependencies: [
+                "CoreTypes",
+                "CoreUtils",
+                "CoreUI",
+                "Logger",
+                "RxSweet",
+                "NeedleDI",
+                "CoreNetwork",
+                "CoreRedux"
+            ]
+        ),
+		.target(name: "CoreTypes"),
 		.testTarget(
 			name: "CoreTypesTests",
             dependencies: ["CoreTypes"]
@@ -62,7 +77,10 @@ let package = Package(
 		),
 		.target(
 			name: "CoreUI",
-			dependencies: ["CoreTypes"]
+			dependencies: ["CoreTypes", "CoreUtils"],
+            resources: [
+                .process("Resources")
+            ]
 		),
 		.target(
 			name: "Logger",
@@ -95,6 +113,7 @@ let package = Package(
         .target(
             name: "CoreRedux",
             dependencies: [
+                "CoreTypes",
                 "Logger"
             ]
         )

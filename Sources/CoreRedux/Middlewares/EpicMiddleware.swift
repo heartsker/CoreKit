@@ -4,17 +4,21 @@
 
 import Combine
 
-class EpicMiddleware<State: Any>: Middleware {
-    private let actions = PassthroughSubject<Action, Never>()
-    private weak var store: (any StoreProtocol)?
+class EpicMiddleware<Store: StoreRepresentable>: Middleware {
+    private let actions = PassthroughSubject<ActionRepresentable, Never>()
+    private weak var store: Store?
 
-    func interfere(store: any StoreProtocol, next: @escaping Dispatch) -> Dispatch {
+    func interfere(store: any StoreRepresentable, next: @escaping Dispatch) -> Dispatch {
         precondition(self.store == nil, "Middleware interference attempted more than once")
 
+        guard let store = store as? Store else {
+            fatalError("Store is not of the correct type \(String(describing: store))")
+        }
+
         self.store = store
-        return { action in
+        return { [weak self] action in
             next(action)
-            self.actions.send(action)
+            self?.actions.send(action)
         }
     }
 
@@ -27,10 +31,13 @@ class EpicMiddleware<State: Any>: Middleware {
             .map { epic in
                 epic.actInternal(actions: actions.eraseToAnyPublisher())
                     .handleEvents(receiveOutput: { newAction in
-                        store.dispatch(action: newAction)
+                        guard let action = newAction as? Store.Action else {
+                            return
+                        }
+                        store.dispatch(action: action)
                     })
             }
-            .reduce(Empty<Action, Never>().eraseToAnyPublisher()) { accumulator, publisher in
+            .reduce(Empty<ActionRepresentable, Never>().eraseToAnyPublisher()) { accumulator, publisher in
                 accumulator
                     .merge(with: publisher)
                     .eraseToAnyPublisher()

@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 13.06.2023.
 //
 
-import CommonTypes
+import CoreTypes
 import SwiftUI
 
 /// A GeometryReader that has hugging sizing behavior

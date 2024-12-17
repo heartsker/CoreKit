@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 20.07.2022.
 //
 
-import CommonTypes
+import CoreTypes
 import SwiftUI
 
 private struct MatchedGeometryEffect<ID: Hashable>: ViewModifier {

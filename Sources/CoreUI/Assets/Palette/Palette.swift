@@ -5,22 +5,16 @@
 import SwiftUI
 
 /// App color palette
-public enum Palette {
+public enum Palette: Sendable {
     // MARK: - Public properties
 
     public static var paletteName: String {
         paletteType.rawValue
     }
 
-    // MARK: - Public methods
-
-    static func setPaletteType(with paletteType: ColorPaletteType) {
-        self.paletteType = paletteType
-    }
-
     // MARK: - Private properties
 
-    static var paletteType: ColorPaletteType = .default
+    private static let paletteType: ColorPaletteType = .default
 }
 
 extension Palette: ColorPalette {}

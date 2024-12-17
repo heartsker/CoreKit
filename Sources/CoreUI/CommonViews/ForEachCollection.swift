@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 21.06.2023.
 //
 
-import CommonTypes
+import CoreTypes
 import SwiftUI
 
 public struct ForEachCollection<Data, Content: View>: View where Data: RandomAccessCollection, Data.Index: Hashable {

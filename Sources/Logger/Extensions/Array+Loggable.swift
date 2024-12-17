@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 27.01.2024.
 //
 
-extension Array: Loggable {
+extension Array: Loggable where Element: Loggable {
     public var logDescription: String {
         guard !isEmpty else { return "[]" }
         return "[\n" +

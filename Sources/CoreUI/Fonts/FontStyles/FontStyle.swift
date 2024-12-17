@@ -5,7 +5,7 @@
 import SwiftUI
 
 /// Font style describes the text appearances
-public struct FontStyle {
+public struct FontStyle: Sendable {
     // MARK: - Properties
 
     let size: FontSize

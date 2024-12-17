@@ -2,11 +2,12 @@
 //  Created by Daniel Pustotin on 27.12.2023.
 //
 
-import CommonTypes
-import CommonUtils
+import CoreTypes
+import CoreUtils
 import Logger
 import SwiftUI
 
+@MainActor
 open class GenericViewModel<ViewType: CommonView>: CommonViewModel {
     // MARK: - Public properties
 

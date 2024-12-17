@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 02.07.2024
 //
 
-public enum RequestContentType: String {
+public enum RequestContentType: String, Sendable {
     case json = "application/json"
     case jpeg = "image/jpeg"
     case png = "image/png"

@@ -17,7 +17,7 @@ public enum AlertFactory {
         )
     }
 
-    public static func makeWithCancelButton(
+    @MainActor public static func makeWithCancelButton(
         title: String,
         message: String? = nil,
         type: AlertType = .confirmationDialog,

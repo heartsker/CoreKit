@@ -3,7 +3,7 @@
 //
 
 /// Provides experiments for `Poster`
-public protocol BackendRequesterExperimentsProvider {
+public protocol BackendRequesterExperimentsProvider: Sendable {
     /// Should retry network requests on failure
     var retryNetworkRequests: Bool { get }
     /// Should slow down network requests

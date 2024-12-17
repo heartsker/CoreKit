@@ -2,9 +2,6 @@
 //  Created by Daniel Pustotin on 13.06.2023.
 //
 
-import CommonTypes
-import SwiftUI
-
 private struct GeometryObservingModifier: ViewModifier {
     // MARK: - Constructor
 
@@ -54,7 +51,9 @@ private struct GeometryObservingModifier: ViewModifier {
                 }
             )
             .onPreferenceChange(FrameKey.self) { frame in
-                changeHandler(frame)
+                Task { @MainActor in
+                    changeHandler(frame)
+                }
             }
     }
 

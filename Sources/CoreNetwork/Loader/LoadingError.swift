@@ -6,7 +6,7 @@ import Foundation
 
 public enum LoadingError: CommonError {
     case failedComposeURL(reason: String)
-    case failed(type: Any)
+    case failed(type: Sendable)
     case badRequest(request: URLRequest)
     case badURL(url: URL?)
     case noURL

@@ -7,3 +7,4 @@
 @_exported import Logger
 @_exported import RxRelay
 @_exported import RxSwift
+@_exported import SwiftUI

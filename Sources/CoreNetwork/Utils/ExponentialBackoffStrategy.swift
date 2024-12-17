@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class ExponentialBackoffStrategy: RetryStrategy {
+final class ExponentialBackoffStrategy: RetryStrategy, @unchecked Sendable {
     // MARK: - Public properties
 
     var shouldRetry: Bool {
@@ -40,7 +40,7 @@ final class ExponentialBackoffStrategy: RetryStrategy {
         }
 
         defer {
-            retriesCount += 1
+            lock.locked { retriesCount += 1 }
         }
 
         return UInt64(baseInterval * pow(2, Double(retriesCount)) * oneSecond)
@@ -54,4 +54,6 @@ final class ExponentialBackoffStrategy: RetryStrategy {
     private let maxRetries: Int
 
     private let oneSecond = TimeInterval(1_000)
+
+    private let lock = UnfairLock()
 }

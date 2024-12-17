@@ -1,77 +1,44 @@
 //
-//  Created by Daniel Pustotin on 03.06.2024
+//  Created by Daniel Pustotin on 16.12.2024
 //
 
 import SwiftUI
 
-public protocol ColorPalette:
-    BackgroundColorPalette,
-    BrandColorPalette,
-    CommonColorPalette,
-    ForegroundColorPalette,
-    GraphicsColorPalette,
-    PracticeResultColorPalette,
-    SignInMethodColorPalette,
-    TabBarColorPalette {
+public protocol ColorPalette {
     static var paletteName: String { get }
-}
 
-public extension ColorPalette {
-    // MARK: - Public properties
+    // MARK: - Background
 
-    // MARK: Background
+    /// Primary background color
+    static var backgroundPrimary: Color { get }
+    /// Secondary background color
+    static var backgroundSecondary: Color { get }
+    /// Tertiary background color
+    static var backgroundTertiary: Color { get }
 
-    static var backgroundPrimary: Color { color("background.primary") }
-    static var backgroundSecondary: Color { color("background.secondary") }
-    static var backgroundTertiary: Color { color("background.tertiary") }
+    // MARK: - Brand
 
-    // MARK: Brand
+    /// Accent color
+    static var accent: Color { get }
 
-    static var brandAccent: Color { color("brand.accent") }
-    static var brandGradient: Gradient { gradient("brand") }
-    static var brandGradientSecondary: Gradient { gradient("brand.secondary") }
+    // MARK: - Common
 
-    // MARK: Code
+    /// Shadow color
+    static var shadow: Color { get }
 
-    static var codeBackground: Color { color("code.background") }
-    static var codeComment: Color { color("code.comment") }
-    static var codeCommonType: Color { color("code.common.type") }
-    static var codeDeclaration: Color { color("code.declaration") }
-    static var codeDeclarationType: Color { color("code.declaration.type") }
-    static var codeField: Color { color("code.field") }
-    static var codeGlobalFunction: Color { color("code.global.function") }
-    static var codeKeyword: Color { color("code.keyword") }
-    static var codeMethodOrProperty: Color { color("code.method.or.property") }
-    static var codeNumber: Color { color("code.number") }
-    static var codeOperator: Color { color("code.operator") }
-    static var codeParameter: Color { color("code.parameter") }
-    static var codePlain: Color { color("code.plain") }
-    static var codeProjectType: Color { color("code.project.type") }
-    static var codePropertyWrapper: Color { color("code.property.wrapper") }
-    static var codeString: Color { color("code.string") }
+    // MARK: - Graphics
 
-    // MARK: Common
+    /// Primary graphics color
+    static var graphicsPrimary: Color { get }
+    /// Secondary graphics color
+    static var graphicsSecondary: Color { get }
 
-    static var commonError: Color { color("common.error") }
-    static var commonError30: Color { color("common.error.30") }
-    static var commonLike: Color { color("common.like") }
-    static var commonShadow: Color { color("common.shadow") }
-    static var commonSuccess: Color { color("common.success") }
-    static var commonClearToBlackGradient: Gradient { gradient("common.clear.to.black") }
+    // MARK: - Text
 
-    // MARK: Foreground
-
-    static var foregroundPrimary: Color { color("foreground.primary") }
-    static var foregroundSecondary: Color { color("foreground.secondary") }
-    static var foregroundTertiary: Color { color("foreground.tertiary") }
-    static var foregroundPrimaryReversed: Color { color("foreground.primary.reversed") }
-    static var foregroundPrimaryWhite: Color { color("foreground.primary.white") }
-    static var foregroundPrimaryWhite70: Color { color("foreground.primary.white.70") }
-    static var foregroundOverlay: Color { color("foreground.overlay") }
-    static var foregroundDifference: Color { color("foreground.difference") }
-
-    // MARK: Graphics
-
-    static var graphicsPrimary: Color { color("graphics.primary") }
-    static var graphicsSecondary: Color { color("graphics.secondary") }
+    /// Primary text color
+    static var textPrimary: Color { get }
+    /// Secondary text color
+    static var textSecondary: Color { get }
+    /// Tertiary text color
+    static var textTertiary: Color { get }
 }

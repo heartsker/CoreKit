@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 02.06.2024
 //
 
-public struct FontProperties: OptionSet {
+public struct FontProperties: OptionSet, Sendable {
     // MARK: - Public properties
 
     public static let underlined = Self(rawValue: 1 << 0)

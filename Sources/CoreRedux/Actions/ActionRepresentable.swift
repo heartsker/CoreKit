@@ -2,13 +2,13 @@
 //  Created by Daniel Pustotin on 30.10.2024
 //
 
-public protocol Action {}
+public protocol ActionRepresentable {}
 
-enum ReduxAction: Action {
+enum ReduxAction: ActionRepresentable {
     case initialize
 }
 
-enum LifecycleAction: Action {
+enum LifecycleAction: ActionRepresentable {
     case appLaunched
     case appWillBeTerminated
 }

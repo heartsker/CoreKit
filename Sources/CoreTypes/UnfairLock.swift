@@ -4,7 +4,7 @@
 
 import os
 
-final public class UnfairLock {
+final public class UnfairLock: @unchecked Sendable {
     // MARK: - Constructor
 
     public init() {

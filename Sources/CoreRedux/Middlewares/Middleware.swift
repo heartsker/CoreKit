@@ -3,5 +3,5 @@
 //
 
 public protocol Middleware {
-    func interfere(store: any StoreProtocol, next: @escaping Dispatch) -> Dispatch
+    func interfere(store: any StoreRepresentable, next: @escaping Dispatch) -> Dispatch
 }

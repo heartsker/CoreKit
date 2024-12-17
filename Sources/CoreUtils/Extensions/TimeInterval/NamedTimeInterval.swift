@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct NamedTimeInterval: Hashable, Codable {
+public struct NamedTimeInterval: Hashable, Codable, Sendable {
     // MARK: - Public properties
 
     public static let zero = Self(name: "zero", interval: .zero)

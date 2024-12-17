@@ -5,5 +5,6 @@
 import Combine
 
 public protocol Dispatcher {
+    associatedtype Action: ActionRepresentable
     func dispatch(action: Action)
 }

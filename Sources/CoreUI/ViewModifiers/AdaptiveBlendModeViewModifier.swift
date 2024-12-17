@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 30.07.2022.
 //
 
-import CommonUtils
+import CoreUtils
 import SwiftUI
 
 private struct AdaptiveBlendModeViewModifier: ViewModifier {

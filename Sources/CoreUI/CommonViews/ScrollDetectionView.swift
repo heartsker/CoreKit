@@ -19,7 +19,9 @@ public struct ScrollDetectionView: View {
             Color.clear.preference(key: ScrollPreferenceKey.self, value: offset(proxy))
         }
         .onPreferenceChange(ScrollPreferenceKey.self) { value in
-            scrollOffset = value
+            Task { @MainActor in
+                scrollOffset = value
+            }
         }
         .frame(height: .zero)
     }
@@ -28,11 +30,8 @@ public struct ScrollDetectionView: View {
 
     private func offset(_ proxy: GeometryProxy) -> CGFloat {
         switch direction {
-        case .horizontal:
-            return proxy.frame(in: .named("scroll")).minX
-
-        default:
-            return proxy.frame(in: .named("scroll")).minY
+        case .horizontal: proxy.frame(in: .named("scroll")).minX
+        default: proxy.frame(in: .named("scroll")).minY
         }
     }
 
@@ -43,7 +42,7 @@ public struct ScrollDetectionView: View {
 }
 
 private extension ScrollDetectionView {
-    struct ScrollPreferenceKey: PreferenceKey {
+    actor ScrollPreferenceKey: PreferenceKey {
         static var defaultValue: CGFloat = .zero
 
         static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {

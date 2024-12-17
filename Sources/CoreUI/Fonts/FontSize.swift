@@ -5,7 +5,7 @@
 import CoreGraphics
 
 /// Default font size constants across the application
-public enum FontSize: CGFloat {
+public enum FontSize: CGFloat, Sendable {
     /// Extra extra small font size (10 pt)
     case xxs = 11
     /// Extra small font size (13 pt)

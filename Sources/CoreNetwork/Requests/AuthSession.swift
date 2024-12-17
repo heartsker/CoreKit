@@ -4,7 +4,7 @@
 
 import CoreTypes
 
-public struct AuthSession: Codable {
+public struct AuthSession: Codable, Sendable {
     // MARK: - Public properties
 
     public let token: UID

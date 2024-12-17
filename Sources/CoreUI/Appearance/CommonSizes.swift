@@ -2,7 +2,6 @@
 //  Created by Daniel Pustotin on 02.10.2022.
 //
 
-import CommonUtils
 import SwiftUI
 
 public enum CommonSizes {

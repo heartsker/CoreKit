@@ -2,8 +2,7 @@
 //  Created by Daniel Pustotin on 10.08.2023.
 //
 
-import RxRelay
-import SwiftUI
+@preconcurrency import RxRelay
 
 public extension BehaviorRelay {
     var binding: Binding<Element> {

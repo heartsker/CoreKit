@@ -2,28 +2,73 @@
 //  Created by Daniel Pustotin on 23.04.2024.
 //
 
-final public class BackendRequest: Configurable {
+public struct BackendRequest {
     // MARK: - Public properties
 
-    var endpoint: any Endpoint
-    var timeout: TimeInterval = .tenSeconds
-    var method: HttpMethod = .get
-    var queryItems: [URLQueryItem] = []
-    var headers: [String: String] = [:]
-    var contentType: RequestContentType = .json
+    let endpoint: any Endpoint
+    let timeout: TimeInterval
+    let method: HttpMethod
+    let queryItems: [URLQueryItem]
+    let headers: [String: String]
+    let contentType: RequestContentType
 
-    var data: Encodable?
-    var attachSession = false
-    var explicitSession: AuthSession?
-    var retriesStrategy: RetryStrategy = ExponentialBackoffStrategy()
+    let data: RequestDataRepresentable?
+    let attachSession: Bool
+    let explicitSession: AuthSession?
+    let retriesStrategy: RetryStrategy
 
     // MARK: - Constructor
 
-    init(endpoint: any Endpoint) {
+    internal init(
+        endpoint: any Endpoint,
+        timeout: TimeInterval = .tenSeconds,
+        method: HttpMethod = .get,
+        queryItems: [URLQueryItem] = [],
+        headers: [String: String] = [:],
+        contentType: RequestContentType = .json,
+        data: RequestDataRepresentable? = nil,
+        attachSession: Bool = false,
+        explicitSession: AuthSession? = nil,
+        retriesStrategy: RetryStrategy = ExponentialBackoffStrategy()
+    ) {
         self.endpoint = endpoint
+        self.timeout = timeout
+        self.method = method
+        self.queryItems = queryItems
+        self.headers = headers
+        self.contentType = contentType
+        self.data = data
+        self.attachSession = attachSession
+        self.explicitSession = explicitSession
+        self.retriesStrategy = retriesStrategy
     }
 
     // MARK: - Public methods
+
+    func copy(
+        timeout: TimeInterval? = nil,
+        method: HttpMethod? = nil,
+        queryItems: [URLQueryItem]? = nil,
+        headers: [String: String]? = nil,
+        contentType: RequestContentType? = nil,
+        data: RequestDataRepresentable? = nil,
+        attachSession: Bool? = nil,
+        explicitSession: AuthSession? = nil,
+        retriesStrategy: RetryStrategy? = nil
+    ) -> BackendRequest {
+        BackendRequest(
+            endpoint: endpoint,
+            timeout: timeout ?? self.timeout,
+            method: method ?? self.method,
+            queryItems: queryItems ?? self.queryItems,
+            headers: headers ?? self.headers,
+            contentType: contentType ?? self.contentType,
+            data: data ?? self.data,
+            attachSession: attachSession ?? self.attachSession,
+            explicitSession: explicitSession ?? self.explicitSession,
+            retriesStrategy: retriesStrategy ?? self.retriesStrategy
+        )
+    }
 
     func buildURLRequest() throws -> (URLRequest, Data?) {
         guard let url = URL(string: endpoint.url) else {

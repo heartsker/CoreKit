@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 04.12.2022.
 //
 
-import CommonTypes
+import CoreTypes
 import SwiftUI
 
 public struct ScrollViewWithDetection<Content>: View where Content: View {

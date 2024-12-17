@@ -19,6 +19,7 @@ public extension View {
     // MARK: - Public properties
 
     /// `AnyView` from `View`
+    @MainActor
     var anyView: AnyView {
         AnyView(self)
     }

@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 24.09.2023.
 //
 
-import CommonUtils
+import CoreUtils
 import SwiftUI
 
 private struct AlertPresentingViewModifier: ViewModifier {
@@ -44,7 +44,7 @@ private struct AlertPresentingViewModifier: ViewModifier {
 
     // MARK: - Subviews
 
-    private func alertAction(for alert: CommonUtils.Alert?) -> some View {
+    private func alertAction(for alert: CoreUtils.Alert?) -> some View {
         ForEach(alert?.actions ?? [], id: \.title) { action in
             Button(role: action.role, action: action.perform) {
                 Text(action.title)

@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 22.06.2024
 //
 
-import CommonTypes
+import CoreTypes
 import SwiftUI
 
 final public class IconViewModel: GenericViewModel<IconView> {

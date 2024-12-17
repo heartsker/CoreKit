@@ -60,7 +60,7 @@ public struct SmallLoaderView: CommonView {
         Circle()
             .trim(from: 0, to: 0.6)
             .stroke(lineWidth: viewModel.lineWidth)
-            .foregroundStyle(Palette.foregroundSecondary)
+            .foregroundStyle(Palette.graphicsPrimary)
             .rotationEffect(.degrees(loading ? 360 : 0))
             .squareFrame(viewModel.loaderSize)
             .onAppear {

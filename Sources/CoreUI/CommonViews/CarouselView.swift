@@ -2,8 +2,8 @@
 //  Created by Daniel Pustotin on 22.12.2022.
 //
 
-import CommonTypes
-import CommonUtils
+import CoreTypes
+import CoreUtils
 import SwiftUI
 
 final public class CarouselViewModel: GenericViewModel<CarouselView> {
@@ -70,7 +70,7 @@ public struct CarouselView: CommonView {
                         view.rotation3DEffect(.degrees(cardOffset / 20.0), axis: Const.cardRotation)
                     }
                     .when(viewModel.shadow) { view in
-                        view.shadow(color: Palette.commonShadow, radius: Spacing.m, x: 0, y: 1)
+                        view.shadow(color: Palette.shadow, radius: Spacing.m, x: 0, y: 1)
                     }
                     .when(viewModel.blur) { view in
                         view.blur(radius: abs(cardOffset) * Const.blurRadiusMultiplier)
@@ -94,7 +94,7 @@ public struct CarouselView: CommonView {
             .onEnded { value in
                 totalOffset -= value.translation.width
                 dragOffset = .zero
-                withAnimation(.flipCard) {
+                withAnimation(.flip) {
                     updateOffset(dragOffset: -value.translation.width)
                 }
             }
