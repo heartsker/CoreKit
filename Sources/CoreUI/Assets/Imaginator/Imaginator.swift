@@ -10,12 +10,12 @@ import SwiftUI
 public enum Imaginator: @unchecked Sendable {
     // MARK: - Public methods
 
-    /// Returns image in current module bundle
+    /// Returns image in the main bundle
     /// - Parameters:
     ///   - name: Name of the image
     /// - Returns: Resulting image
     public static func image(_ name: String) -> Image {
-        image(name, in: .module)
+        image(name, in: .main)
     }
 
     /// Returns image in given bundle

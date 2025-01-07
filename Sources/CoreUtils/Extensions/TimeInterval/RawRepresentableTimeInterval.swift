@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension TimeInterval: RawRepresentable {
+extension TimeInterval: @retroactive RawRepresentable {
     // MARK: - Public nesting
     public typealias RawValue = String
 

@@ -2,7 +2,6 @@
 //  Created by Daniel Pustotin on 24.07.2023.
 //
 
-import Foundation
 
 public extension CGPoint {
     /// Calculates distance to given point

@@ -5,7 +5,7 @@
 import Combine
 
 public protocol StateProvider: AnyObject {
-    associatedtype State
+    associatedtype State: StateRepresentable
     var state: State { get }
     func states() -> AnyPublisher<State, Never>
 }

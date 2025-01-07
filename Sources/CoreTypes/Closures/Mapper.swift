@@ -3,4 +3,6 @@
 //
 
 /// A closure that takes an argument and maps it to another value
-public typealias Mapper<T, U> = (T) -> U
+public typealias Mapper<T, U> = @Sendable (T) -> U
+/// A sendable version of ``Mapper``
+public typealias SendableMapper<T, U> = @Sendable (T) -> U

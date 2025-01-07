@@ -1,0 +1,27 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add" : {
+      "comment" : "Add"
+    },
+    "Back" : {
+      "comment" : "Back"
+    },
+    "Cancel" : {
+      "comment" : "Cancel"
+    },
+    "Delete" : {
+      "comment" : "Delete"
+    },
+    "Done" : {
+      "comment" : "Done"
+    },
+    "Edit" : {
+      "comment" : "Edit"
+    },
+    "Ok" : {
+      "comment" : "Ok"
+    }
+  },
+  "version" : "1.0"
+}

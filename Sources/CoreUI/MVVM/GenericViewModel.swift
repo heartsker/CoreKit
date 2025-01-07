@@ -4,7 +4,7 @@
 
 import CoreTypes
 import CoreUtils
-import Logger
+import CoreLogger
 import SwiftUI
 
 @MainActor

@@ -4,4 +4,4 @@
 
 @_exported import CoreTypes
 @_exported import CoreUtils
-@_exported import Logger
+@_exported import CoreLogger

@@ -2,7 +2,8 @@
 //  Created by Daniel Pustotin on 02.10.2022.
 //
 
-import SwiftUI
+import CoreGraphics
+import struct SwiftUI.EdgeInsets
 
 public enum CommonSizes {
     /// Navigation bar sizes

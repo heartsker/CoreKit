@@ -3,7 +3,7 @@
 //
 
 import Combine
-import RxSweet
+import CoreReactive
 
 @propertyWrapper
 public struct PublishedRelay<Value> {

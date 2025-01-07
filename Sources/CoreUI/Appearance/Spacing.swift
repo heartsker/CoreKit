@@ -8,6 +8,8 @@ import CoreGraphics
 public enum Spacing {
     // MARK: - Public properties
 
+    /// 4 extra small spacer (2.0 points)
+    public static let x4s: CGFloat = Self.minimalUnit * Self.x4sMultiplier
     /// Extra extra extra small spacer (4.0 points)
     public static let xxxs: CGFloat = Self.minimalUnit * Self.xxxsMultiplier
     /// Extra extra small spacer (8.0 points)
@@ -31,6 +33,7 @@ public enum Spacing {
 
     private static let minimalUnit: CGFloat = 4.0
 
+    private static let x4sMultiplier: CGFloat = 0.5
     private static let xxxsMultiplier: CGFloat = 1.0
     private static let xxsMultiplier: CGFloat = 2.0
     private static let xsMultiplier: CGFloat = 3.0

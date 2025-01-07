@@ -15,5 +15,7 @@ public extension FontStyle {
         public static let s = FontStyle(.s, weight: .light)
         /// Medium text font style (17 pt)
         public static let m = FontStyle(.m, weight: .light)
+        /// Large text font style (28 pt)
+        public static let l = FontStyle(.l, weight: .light)
     }
 }

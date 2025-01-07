@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 23.04.2024.
 //
 
+import Foundation
+
 public struct BackendRequest {
     // MARK: - Public properties
 

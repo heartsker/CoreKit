@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 13.06.2023.
 //
 
+import SwiftUI
+
 private struct GeometryObservingModifier: ViewModifier {
     // MARK: - Constructor
 

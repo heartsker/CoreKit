@@ -5,7 +5,7 @@
 import CoreTypes
 import SwiftUI
 
-public struct Alert {
+public struct Alert: Sendable {
     // MARK: - Public properties
 
     public let title: String

@@ -2,7 +2,8 @@
 //  Created by Daniel Pustotin on 09.07.2022.
 //
 
-import UIKit
+import CoreGraphics
+import class UIKit.UIScreen
 
 /// Screen size constants
 @MainActor

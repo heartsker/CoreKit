@@ -5,8 +5,8 @@
 //
 
 import CoreTypes
-import Logger
-import RxSweet
+import CoreLogger
+import CoreReactive
 import SwiftUI
 
 @MainActor

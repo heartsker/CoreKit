@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 11.03.2023.
 //
 
+import Foundation
+
 /// Builds and executes backend requests
 public protocol BackendRequester {
     @discardableResult
@@ -69,10 +71,10 @@ final public class BackendRequesterImpl: NSObject, BackendRequester, URLSessionD
     // MARK: - Private methods
 
     private func enrichWithSession(_ request: BackendRequest) async throws -> (URLRequest, Data?) {
-        var (urlRequest, data) = try await request.buildURLRequest()
+        var (urlRequest, data) = try request.buildURLRequest()
 
-        if await request.attachSession {
-            guard let token = await request.explicitSession?.token ?? authSessionHolder.session?.token else {
+        if request.attachSession {
+            guard let token = request.explicitSession?.token ?? authSessionHolder.session?.token else {
                 throw BackendRequesterError.noSession
             }
 

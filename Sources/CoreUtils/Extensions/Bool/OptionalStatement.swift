@@ -64,7 +64,7 @@ public extension Optional where Wrapped == Bool {
     /// Executes action if optional `Bool?` value is `true`
     /// - Parameter action: Action to execute
     @discardableResult
-    func ifTrue(do action: VoidAction) -> Bool {
+    func ifTrue(do action: Action) -> Bool {
         if self ?? false {
             action()
         }

@@ -10,7 +10,7 @@ public enum AlertActionFactory {
     public static func make(
         with title: String,
         role: ButtonRole? = nil,
-        onTriggered action: VoidAction?
+        onTriggered action: SendableAction?
     ) -> AlertAction {
         AlertAction(title: title, role: role, action: action)
     }

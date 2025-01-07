@@ -2,7 +2,7 @@
 //  Created by Daniel Pustotin on 13.07.2023.
 //
 
-extension Int: RawRepresentable {
+extension Int: @retroactive RawRepresentable {
     // MARK: - Public nesting
 
     public typealias RawValue = String

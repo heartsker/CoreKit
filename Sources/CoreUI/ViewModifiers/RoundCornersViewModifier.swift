@@ -60,7 +60,7 @@ private struct RoundCornersViewModifier: ViewModifier {
 public extension View {
     /// Rounds corners of the view
     func roundCorners(
-        _ cornerRadius: CGFloat = Spacing.l,
+        _ cornerRadius: CGFloat = Radii.s,
         corners: UIRectCorner = .allCorners
     ) -> some View {
         modifier(RoundCornersViewModifier(cornerRadius: cornerRadius, corners: corners))

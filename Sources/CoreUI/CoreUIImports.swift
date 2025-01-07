@@ -4,4 +4,4 @@
 
 @_exported import CoreTypes
 @_exported import CoreUtils
-@_exported import SwiftUI
+@_exported import Foundation

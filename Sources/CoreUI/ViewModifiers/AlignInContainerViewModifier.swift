@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 15.07.2024
 //
 
+import SwiftUI
+
 private struct AlignHorizontallyInContainerViewModifier: ViewModifier {
     // MARK: - Constructor
 

@@ -3,10 +3,13 @@
 //
 
 /// A closure that takes nothing and returns nothing
-public typealias VoidAction = Emitter<Void>
-/// An async closure that takes nothing and returns nothing
-public typealias AsyncVoidAction = AsyncEmitter<Void>
-/// A throwable closure that takes nothing and returns nothing
-public typealias ThrowableVoidAction = ThrowableEmitter<Void>
-/// An async throwable closure that takes nothing and returns nothing
-public typealias AsyncThrowableVoidAction = AsyncThrowableEmitter<Void>
+public typealias Action = Emitter<Void>
+/// A sendable version of ``Action``
+public typealias SendableAction = SendableEmitter<Void>
+
+/// An async version of ``Action``
+public typealias AsyncAction = AsyncEmitter<Void>
+/// A throwable version of ``Action``
+public typealias ThrowableAction = ThrowableEmitter<Void>
+/// An async throwable version of ``Action``
+public typealias AsyncThrowableAction = AsyncThrowableEmitter<Void>

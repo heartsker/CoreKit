@@ -43,7 +43,7 @@ public extension ColorScheme {
     }
 }
 
-extension ColorScheme: RawRepresentable {
+extension ColorScheme: @retroactive RawRepresentable {
     public typealias RawValue = String
 
     public init?(rawValue: String) {

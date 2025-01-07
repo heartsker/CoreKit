@@ -33,7 +33,7 @@ public extension DispatchTime {
     }
 }
 
-extension DispatchTime: CustomStringConvertible {
+extension DispatchTime: @retroactive CustomStringConvertible {
     public var description: String {
         translate(in: .millisecond).description + " ms"
     }

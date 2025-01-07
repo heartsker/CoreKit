@@ -4,11 +4,19 @@
 
 import Combine
 
-class EpicMiddleware<Store: StoreRepresentable>: Middleware {
-    private let actions = PassthroughSubject<ActionRepresentable, Never>()
+struct EpicConnectAction: ActionRepresentable {}
+
+public protocol EpicRegisterable {
+    func register(epics: [Epic]) -> AnyCancellable?
+}
+
+public final class EpicMiddleware<Store: StoreRepresentable>: Middleware, EpicRegisterable {
+    private let actions = PassthroughSubject<any ActionRepresentable, Never>()
     private weak var store: Store?
 
-    func interfere(store: any StoreRepresentable, next: @escaping Dispatch) -> Dispatch {
+    public init() {}
+
+    public func interfere(store: any StoreRepresentable, next: @escaping Dispatch) -> Dispatch {
         precondition(self.store == nil, "Middleware interference attempted more than once")
 
         guard let store = store as? Store else {
@@ -22,29 +30,30 @@ class EpicMiddleware<Store: StoreRepresentable>: Middleware {
         }
     }
 
-    func register(epics: [Epic]) -> AnyCancellable {
+    public func register(epics: [Epic]) -> AnyCancellable? {
         guard let store = store else {
-            return AnyCancellable {}
+            fatalError("Middleware not connected to a store")
         }
 
         let mergedPublisher = epics
             .map { epic in
                 epic.actInternal(actions: actions.eraseToAnyPublisher())
-                    .handleEvents(receiveOutput: { newAction in
-                        guard let action = newAction as? Store.Action else {
-                            return
-                        }
-                        store.dispatch(action: action)
-                    })
+                    .handleEvents(receiveOutput: store.dispatch)
             }
-            .reduce(Empty<ActionRepresentable, Never>().eraseToAnyPublisher()) { accumulator, publisher in
+            .reduce(Empty<any ActionRepresentable, Never>().eraseToAnyPublisher()) { accumulator, publisher in
                 accumulator
                     .merge(with: publisher)
                     .eraseToAnyPublisher()
             }
 
+        defer {
+            actions.send(EpicConnectAction())
+        }
+
         // Return a single cancellable that manages all epic subscriptions
         return mergedPublisher
-            .sink(receiveValue: { _ in })
+            .sink {
+                store.dispatch(action: $0)
+            }
     }
 }

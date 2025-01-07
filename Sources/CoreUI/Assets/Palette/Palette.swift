@@ -2,7 +2,6 @@
 //  Created by Daniel Pustotin on 01.06.2022.
 //
 
-import SwiftUI
 
 /// App color palette
 public enum Palette: Sendable {

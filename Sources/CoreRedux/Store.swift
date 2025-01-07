@@ -5,13 +5,14 @@
 import Combine
 import Foundation
 
-public protocol StoreRepresentable: StateProvider, Dispatcher {}
+public protocol StoreRepresentable: StateProvider, Dispatcher, Scoper, EpicRegisterable, ObservableObject {}
+public typealias ScopedStore<Reducer: ReducerRepresentable> = Store<Scope<Reducer>>
 
 public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
-    // MARK: - Public properties
+    // MARK: - Properties
 
     public typealias State = StoreScope.State
-    public typealias Action = StoreScope.Action
+    public typealias Reducer = StoreScope.Reducer
 
     @Published public private(set) var state: State {
         didSet {
@@ -19,14 +20,13 @@ public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
         }
     }
 
-    // MARK: - Private properties
-
     private let statesSubject: CurrentValueSubject<State, Never>
-    private let actionsSubject: PassthroughSubject<ActionRepresentable, Never>
+    private let actionsSubject: PassthroughSubject<any ActionRepresentable, Never>
 
     private let scope: StoreScope
-    private let reducer: Reducer<State, Action>
+    private let reducer: Reducer
     private let middlewares: [Middleware]
+    private weak var parentDispatcher: Dispatcher?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -35,23 +35,28 @@ public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
     public init(
         scope: StoreScope,
         initialState: State,
-        middlewares: [Middleware] = []
+        middlewares: [Middleware] = [],
+        parentActionMapper: SendableModifier<any ActionRepresentable>? = nil,
+        parentDispatcher: Dispatcher? = nil
     ) {
         state = initialState
 
         self.scope = scope
         reducer = scope.reducer
         self.middlewares = middlewares
+        self.parentDispatcher = parentDispatcher
 
         statesSubject = CurrentValueSubject<State, Never>(initialState)
-        actionsSubject = PassthroughSubject<ActionRepresentable, Never>()
+        actionsSubject = PassthroughSubject<any ActionRepresentable, Never>()
 
         let dispatch: Dispatch = { [weak self] action in
-            guard let self,
-                  let action = action as? Action else {
-                return
+            guard let self else { return }
+
+            reducer.reduce(&state, action: action)
+
+            if let parentDispatcher, let parentActionMapper {
+                parentDispatcher.dispatch(action: parentActionMapper(action))
             }
-            reducer(&state, action)
         }
 
         // Create a dispatch chain using middlewares
@@ -66,27 +71,34 @@ public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
             .store(in: &cancellables)
     }
 
-    // MARK: - Public methods
+    // MARK: - Methods
 
     public func states() -> AnyPublisher<State, Never> {
         statesSubject.eraseToAnyPublisher()
     }
 
-    public func dispatch(action: Action) {
+    public func dispatch(action: any ActionRepresentable) {
         actionsSubject.send(action)
     }
 
-    func scope<LocalScope>(
-        with scope: LocalScope,
+    public func scope<ChildScope>(
+        with scope: ChildScope,
         middlewares: [Middleware],
-        _ localStateMapper: @escaping (State) -> LocalScope.State,
-        _ globalActionMapper: @escaping (LocalScope.Action) -> Action
-    ) -> Store<LocalScope> where LocalScope: ScopeRepresentable {
-        Store<LocalScope>(
+        _ childStateMapper: @escaping SendableMapper<State, ChildScope.State>,
+        _ parentActionMapper: SendableMapper<any ActionRepresentable, any ActionRepresentable>?
+    ) -> Store<ChildScope> where ChildScope: ScopeRepresentable {
+        Store<ChildScope>(
             scope: scope,
-            initialState: localStateMapper(state),
-            middlewares: [ScopeMiddleware(globalActionMapper: globalActionMapper)] + middlewares
+            initialState: childStateMapper(state),
+            middlewares: middlewares,
+            parentActionMapper: parentActionMapper,
+            parentDispatcher: self
         )
+    }
+
+    public func register(epics: [Epic]) -> AnyCancellable? {
+        (middlewares.first { $0 is EpicMiddleware<Store> } as? EpicMiddleware<Store>)?
+            .register(epics: epics)
     }
 }
 

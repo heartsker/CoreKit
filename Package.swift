@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
 	name: "CoreKit",
+    defaultLocalization: "en",
 	platforms: [
 		.iOS(.v16)
 	],
@@ -14,37 +15,41 @@ let package = Package(
             name: "CoreKit",
             targets: ["CoreKit"]
         ),
+        .library(
+            name: "CoreDI",
+            targets: ["CoreDI"]
+        ),
+        .library(
+            name: "CoreLocalizer",
+            targets: ["CoreLocalizer"]
+        ),
+        .library(
+            name: "CoreLogger",
+            targets: ["CoreLogger"]
+        ),
+        .library(
+            name: "CoreNetwork",
+            targets: ["CoreNetwork"]
+        ),
+        .library(
+            name: "CoreReactive",
+            targets: ["CoreReactive"]
+        ),
+        .library(
+            name: "CoreRedux",
+            targets: ["CoreRedux"]
+        ),
 		.library(
 			name: "CoreTypes",
 			targets: ["CoreTypes"]
 		),
 		.library(
-			name: "CoreUtils",
-			targets: ["CoreUtils"]
-		),
-		.library(
 			name: "CoreUI",
 			targets: ["CoreUI"]
 		),
-		.library(
-			name: "Logger",
-			targets: ["Logger"]
-		),
-		.library(
-			name: "RxSweet",
-			targets: ["RxSweet"]
-		),
-		.library(
-            name: "NeedleDI",
-            targets: ["NeedleDI"]
-        ),
-		.library(
-			name: "CoreNetwork",
-			targets: ["CoreNetwork"]
-		),
         .library(
-            name: "CoreRedux",
-            targets: ["CoreRedux"]
+            name: "CoreUtils",
+            targets: ["CoreUtils"]
         )
 	],
 	dependencies: [
@@ -56,14 +61,56 @@ let package = Package(
         .target(
             name: "CoreKit",
             dependencies: [
-                "CoreTypes",
-                "CoreUtils",
-                "CoreUI",
-                "Logger",
-                "RxSweet",
-                "NeedleDI",
+                "CoreDI",
+                "CoreLocalizer",
+                "CoreLogger",
                 "CoreNetwork",
-                "CoreRedux"
+                "CoreReactive",
+                "CoreRedux",
+                "CoreTypes",
+                "CoreUI",
+                "CoreUtils"
+            ]
+        ),
+        .target(
+            name: "CoreDI",
+            dependencies: [
+                "CoreLogger",
+                .product(name: "NeedleFoundation", package: "needle")
+            ]
+        ),
+        .target(
+            name: "CoreLocalizer",
+            resources: [
+                .process("Resources")
+            ]
+        ),
+        .target(
+            name: "CoreLogger",
+            dependencies: ["CoreTypes"]
+        ),
+        .target(
+            name: "CoreNetwork",
+            dependencies: [
+                "CoreLogger",
+                "CoreTypes",
+                "CoreUtils"
+            ]
+        ),
+        .target(
+            name: "CoreReactive",
+            dependencies: [
+                "CoreLogger",
+                "CoreTypes",
+                "RxSwift",
+                .product(name: "RxRelay", package: "RxSwift")
+            ]
+        ),
+        .target(
+            name: "CoreRedux",
+            dependencies: [
+                "CoreLogger",
+                "CoreTypes"
             ]
         ),
 		.target(name: "CoreTypes"),
@@ -71,51 +118,16 @@ let package = Package(
 			name: "CoreTypesTests",
             dependencies: ["CoreTypes"]
 		),
-		.target(
-			name: "CoreUtils",
-			dependencies: ["CoreTypes", "RxSweet"]
-		),
-		.target(
-			name: "CoreUI",
-			dependencies: ["CoreTypes", "CoreUtils"],
+        .target(
+            name: "CoreUI",
+            dependencies: ["CoreTypes", "CoreUtils"],
             resources: [
-                .process("Resources")
-            ]
-		),
-		.target(
-			name: "Logger",
-			dependencies: ["CoreTypes"]
-		),
-		.target(
-			name: "RxSweet",
-			dependencies: [
-				"CoreTypes",
-				"RxSwift",
-				"Logger",
-				.product(name: "RxRelay", package: "RxSwift")
-			]
-		),
-		.target(
-            name: "NeedleDI",
-            dependencies: [
-                "Logger",
-                .product(name: "NeedleFoundation", package: "needle")
+                .process("Assets/Resources")
             ]
         ),
 		.target(
-			name: "CoreNetwork",
-			dependencies: [
-				"CoreTypes",
-				"CoreUtils",
-				"Logger"
-			]
-		),
-        .target(
-            name: "CoreRedux",
-            dependencies: [
-                "CoreTypes",
-                "Logger"
-            ]
-        )
+			name: "CoreUtils",
+			dependencies: ["CoreTypes", "CoreReactive"]
+		)
 	]
 )

@@ -3,4 +3,4 @@
 //
 
 @_exported import CoreTypes
-@_exported import Logger
+@_exported import CoreLogger

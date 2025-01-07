@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 01.11.2024
 //
 
+import Foundation
+
 open class Requester {
     private let backendRequester: BackendRequester
 
