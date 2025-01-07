@@ -9,9 +9,4 @@ public protocol Loader {
         type: T.Type,
         request: BackendRequest
     ) async throws -> T? where T: Loadable
-
-    func loadExisting<T>(
-        type: T.Type,
-        request: BackendRequest
-    ) async throws -> T where T: Loadable
 }

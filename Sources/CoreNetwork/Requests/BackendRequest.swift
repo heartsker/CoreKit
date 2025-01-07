@@ -7,6 +7,7 @@ import Foundation
 public struct BackendRequest {
     // MARK: - Public properties
 
+<<<<<<< Updated upstream
     let endpoint: any Endpoint
     let timeout: TimeInterval
     let method: HttpMethod
@@ -18,6 +19,18 @@ public struct BackendRequest {
     let attachSession: Bool
     let explicitSession: AuthSession?
     let retriesStrategy: RetryStrategy
+=======
+    var endpoint: any Endpoint
+    var timeout: TimeInterval = .tenSeconds
+    var method: HttpMethod = .get
+    var queryItems: [URLQueryItem] = []
+    var headers: [String: String] = [:]
+    var contentType: RequestContentType = .json
+    var cachePolicy: CachePolicy = .useProtocolCachePolicy
+
+    var data: Encodable?
+    var retriesStrategy: RetryStrategy = ExponentialBackoffStrategy()
+>>>>>>> Stashed changes
 
     // MARK: - Constructor
 
@@ -77,13 +90,11 @@ public struct BackendRequest {
             throw BackendRequesterError.badEndpoint(endpoint)
         }
 
-        var request = URLRequest(
-            url: url,
-            timeoutInterval: timeout
-        )
+        var request = URLRequest(url: url, timeoutInterval: timeout)
         request.httpMethod = method.rawValue
         request.url?.append(queryItems: queryItems)
         request.allHTTPHeaderFields = headers
+        request.cachePolicy = cachePolicy
 
         request.setValue(contentType.rawValue, forHTTPHeaderField: "Content-Type")
 
@@ -98,7 +109,7 @@ public struct BackendRequest {
         }
 
         if method == .get, contentData != nil {
-            logger.error("Wrong request format", error: BackendRequesterError.dataPassedForGetRequest)
+            throw BackendRequesterError.dataPassedForGetRequest
         }
 
         return (request, contentData)
@@ -118,8 +129,8 @@ extension BackendRequest: Loggable {
             "query items": queryItems,
             "headers": headers,
             "content type": contentType,
+            "cache policy": cachePolicy.logDescription,
             "has data": data != nil,
-            "attach session": attachSession,
             "retries strategy": retriesStrategy.logDescription
         ]
     }

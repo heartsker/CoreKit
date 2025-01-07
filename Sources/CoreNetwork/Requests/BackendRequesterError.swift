@@ -7,7 +7,7 @@ import Foundation
 /// Error that can occur while building or executing a backend request
 enum BackendRequesterError: CommonError {
     case badEndpoint(_ endpoint: any Endpoint)
-    case noSession
+    case failedToDecodeSchema(_ schema: Any.Type)
     case unknown
     case dataPassedForGetRequest
     case badResponseStatusCode(HttpStatusCode)
@@ -18,8 +18,8 @@ enum BackendRequesterError: CommonError {
         switch self {
         case let .badEndpoint(endpoint):
             "Failed to build URL for path `\(endpoint.url)`"
-        case .noSession:
-            "No session found"
+        case let .failedToDecodeSchema(schema):
+            "Failed to decode schema `\(schema)`"
         case .unknown:
             "Unknown error occurred"
         case .dataPassedForGetRequest:

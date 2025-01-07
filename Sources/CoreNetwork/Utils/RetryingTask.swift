@@ -14,20 +14,7 @@ extension Task where Failure == Error {
                 do {
                     return try await operation()
                 } catch {
-                    if case BackendRequesterError.badResponseStatusCode(let httpStatusCode) = error,
-                       httpStatusCode.is500 {
-                        logger.debug("Unauthorized request, will retry")
-                    } else {
-                        break
-                    }
-
-                    guard retryStrategy.shouldRetry else {
-                        break
-                    }
-                    let delay = retryStrategy.nextRetryInterval()
-
-                    logger.debug("Will retry in \(delay) ms")
-                    try await Task<Never, Never>.sleep(for: .milliseconds(delay))
+                    try await Task<Never, Never>.sleep(for: .milliseconds(retryStrategy.nextRetryInterval()))
                 }
             }
 

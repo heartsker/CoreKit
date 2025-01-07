@@ -15,4 +15,12 @@ extension URLResponse {
     var isSuccessfulStatusCode: Bool {
         httpStatusCode.isSuccessful
     }
+
+    var isClientErrorStatusCode: Bool {
+        httpStatusCode.isClientError
+    }
+
+    var isServerErrorStatusCode: Bool {
+        httpStatusCode.isServerError
+    }
 }

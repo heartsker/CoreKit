@@ -2,13 +2,17 @@
 //  Created by Daniel Pustotin on 15.05.2023.
 //
 
+<<<<<<< Updated upstream
 protocol Endpoint: Loggable, Sendable {
+=======
+public protocol Endpoint: Loggable {
+>>>>>>> Stashed changes
     var component: EndpointComponent { get }
 
     static var baseEndpoint: BaseEndpoint? { get }
 }
 
-extension Endpoint {
+public extension Endpoint {
     // MARK: - Public properties
 
     var url: String {
