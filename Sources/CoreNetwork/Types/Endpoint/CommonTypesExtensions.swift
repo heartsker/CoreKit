@@ -5,6 +5,8 @@
 // MARK: - String + EndpointComponent
 
 extension String: EndpointComponent {
+    // MARK: - Properties
+
     public var path: String {
         self
     }
@@ -13,13 +15,16 @@ extension String: EndpointComponent {
 // MARK: - String + BaseEndpoint
 
 extension String: BaseEndpoint {
-    static let baseEndpoint: BaseEndpoint? = nil
+    // MARK: - Properties
+    public static let baseEndpoint: BaseEndpoint? = nil
 
-    var component: EndpointComponent {
+    public var component: EndpointComponent {
         path
     }
 
-    init?(component: EndpointComponent) {
+    // MARK: - Constructor
+
+    public init?(component: EndpointComponent) {
         self = component.path
     }
 }
@@ -27,7 +32,9 @@ extension String: BaseEndpoint {
 // MARK: - Int + EndpointComponent
 
 extension Int: EndpointComponent {
-    var path: String {
+    // MARK: - Properties
+
+    public var path: String {
         String(self)
     }
 }
@@ -35,7 +42,9 @@ extension Int: EndpointComponent {
 // MARK: - Array
 
 extension Array where Element: EndpointComponent {
-    var joinedComponents: String {
+    // MARK: - Properties
+
+    public var joinedComponents: String {
         map(\.path)
             .filter(\.isNotEmpty)
             .joined(separator: "/")

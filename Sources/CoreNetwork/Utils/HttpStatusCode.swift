@@ -2,12 +2,7 @@
 //  Created by Daniel Pustotin on 04.05.2024.
 //
 
-<<<<<<< Updated upstream
-public enum HttpStatusCode: Int, Sendable {
-    case ok = 200
-    case accepted = 202
-=======
-public enum HttpStatusCode: RawRepresentable, CaseIterable {
+public enum HttpStatusCode: RawRepresentable, CaseIterable, Sendable {
     case ok
     case created
     case accepted
@@ -48,7 +43,6 @@ public enum HttpStatusCode: RawRepresentable, CaseIterable {
     case serviceUnavailable
     case gatewayTimeout
     case httpVersionNotSupported
->>>>>>> Stashed changes
 
     case other(code: Int)
     case unknown

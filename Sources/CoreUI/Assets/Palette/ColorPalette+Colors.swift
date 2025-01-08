@@ -13,6 +13,10 @@ public extension ColorPalette {
     static var backgroundSecondary: Color { color("background-secondary") }
     static var backgroundTertiary: Color { color("background-tertiary") }
 
+    static var backgroundGroupedPrimary: Color { color("background-grouped-primary") }
+    static var backgroundGroupedSecondary: Color { color("background-grouped-secondary") }
+    static var backgroundGroupedTertiary: Color { color("background-grouped-tertiary") }
+
     // MARK: Brand
 
     static var accent: Color { color("accent") }
@@ -53,5 +57,6 @@ public extension ColorPalette {
     static var textPrimary: Color { color("text-primary") }
     static var textSecondary: Color { color("text-secondary") }
     static var textTertiary: Color { color("text-tertiary") }
+    static var textQuaternary: Color { color("text-quaternary") }
     static var textLink: Color { color("text-link") }
 }

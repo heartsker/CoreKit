@@ -2,6 +2,7 @@
 //  Created by Daniel Pustotin on 24.07.2023.
 //
 
+import CoreGraphics
 
 public extension CGPoint {
     /// Adds two points as vectors

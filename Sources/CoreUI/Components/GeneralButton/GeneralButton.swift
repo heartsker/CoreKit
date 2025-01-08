@@ -5,32 +5,32 @@
 import SwiftUI
 
 public struct GeneralButton: View {
-    public enum Size {
+    public enum Size: Sendable {
         case s
         case m
         case l
     }
 
-    public enum Shape {
+    public enum Shape: Sendable {
         case rounded
         case capsule
         case none
     }
 
-    public enum Style {
+    public enum Style: Sendable {
         case solid
         case glass
         case none
     }
 
-    private let text: String
-    private let leftIconSymbol: Imaginator.Symbol?
-    private let rightIconSymbol: Imaginator.Symbol?
-    private let size: Size
-    private let shape: Shape
-    private let style: Style
-    private let isDisabled: Bool
+    private let title: String
     private let action: Action?
+    @Environment(\.generalButtonSize) private var size: Size
+    @Environment(\.generalButtonShape) private var shape: Shape
+    @Environment(\.generalButtonStyle) private var style: Style
+    @Environment(\.generalButtonDisabled) private var isDisabled: Bool
+    @Environment(\.generalButtonLeftIcon) private var leftIconSymbol: Imaginator.Symbol?
+    @Environment(\.generalButtonRightIcon) private var rightIconSymbol: Imaginator.Symbol?
 
     public var body: some View {
         Button {
@@ -64,7 +64,7 @@ public struct GeneralButton: View {
                 IconView(Icon(symbol: leftIconSymbol, size: iconSize))
             }
 
-            Text(text)
+            Text(title)
                 .fontStyle(fontStyle)
                 .underline(shape == .none)
 
@@ -126,22 +126,10 @@ public struct GeneralButton: View {
     // MARK: - Constructor
 
     public init(
-        text: String,
-        leftIconSymbol: Imaginator.Symbol? = nil,
-        rightIconSymbol: Imaginator.Symbol? = nil,
-        size: Size = .m,
-        shape: Shape = .rounded,
-        style: Style = .solid,
-        isDisabled: Bool = false,
+        _ title: String,
         action: Action?
     ) {
-        self.text = text
-        self.leftIconSymbol = leftIconSymbol
-        self.rightIconSymbol = rightIconSymbol
-        self.size = size
-        self.shape = shape
-        self.style = style
-        self.isDisabled = isDisabled
+        self.title = title
         self.action = action
     }
 }

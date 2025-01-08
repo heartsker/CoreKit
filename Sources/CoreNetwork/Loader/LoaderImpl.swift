@@ -2,6 +2,8 @@
 //  Created by Daniel Pustotin on 15.06.2022.
 //
 
+import Foundation
+
 final public class LoaderImpl: Loader {
     // MARK: - Properties
 
@@ -19,25 +21,19 @@ final public class LoaderImpl: Loader {
         type: T.Type,
         request: BackendRequest
     ) async throws -> T? where T: Loadable {
-        let result = try await backendRequester.execute(request: request)
+        let data = try await backendRequester.execute(request: request)
 
-        switch result {
-        case .success(let data):
-            if T.self is Data.Type {
-                guard let data = data as? T else {
-                    throw NeverError()
-                }
-                return data
+        if T.self is Data.Type {
+            guard let data = data as? T else {
+                throw NeverError()
             }
-
-            if data.isEmpty {
-                return nil
-            }
-
-            return try JSONDecoder.snakeCaseDecoder.decode(T.self, from: data)
-
-        case .failure(let error):
-            throw error
+            return data
         }
+
+        if data.isEmpty {
+            return nil
+        }
+
+        return try JSONDecoder.snakeCaseDecoder.decode(T.self, from: data)
     }
 }

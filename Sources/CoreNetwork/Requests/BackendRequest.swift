@@ -7,19 +7,6 @@ import Foundation
 public struct BackendRequest {
     // MARK: - Public properties
 
-<<<<<<< Updated upstream
-    let endpoint: any Endpoint
-    let timeout: TimeInterval
-    let method: HttpMethod
-    let queryItems: [URLQueryItem]
-    let headers: [String: String]
-    let contentType: RequestContentType
-
-    let data: RequestDataRepresentable?
-    let attachSession: Bool
-    let explicitSession: AuthSession?
-    let retriesStrategy: RetryStrategy
-=======
     var endpoint: any Endpoint
     var timeout: TimeInterval = .tenSeconds
     var method: HttpMethod = .get
@@ -28,9 +15,8 @@ public struct BackendRequest {
     var contentType: RequestContentType = .json
     var cachePolicy: CachePolicy = .useProtocolCachePolicy
 
-    var data: Encodable?
+    var data: RequestDataRepresentable?
     var retriesStrategy: RetryStrategy = ExponentialBackoffStrategy()
->>>>>>> Stashed changes
 
     // MARK: - Constructor
 
@@ -41,9 +27,8 @@ public struct BackendRequest {
         queryItems: [URLQueryItem] = [],
         headers: [String: String] = [:],
         contentType: RequestContentType = .json,
+        cachePolicy: CachePolicy = .useProtocolCachePolicy,
         data: RequestDataRepresentable? = nil,
-        attachSession: Bool = false,
-        explicitSession: AuthSession? = nil,
         retriesStrategy: RetryStrategy = ExponentialBackoffStrategy()
     ) {
         self.endpoint = endpoint
@@ -53,8 +38,6 @@ public struct BackendRequest {
         self.headers = headers
         self.contentType = contentType
         self.data = data
-        self.attachSession = attachSession
-        self.explicitSession = explicitSession
         self.retriesStrategy = retriesStrategy
     }
 
@@ -66,8 +49,8 @@ public struct BackendRequest {
         queryItems: [URLQueryItem]? = nil,
         headers: [String: String]? = nil,
         contentType: RequestContentType? = nil,
+        cachePolicy: CachePolicy? = nil,
         data: RequestDataRepresentable? = nil,
-        attachSession: Bool? = nil,
         explicitSession: AuthSession? = nil,
         retriesStrategy: RetryStrategy? = nil
     ) -> BackendRequest {
@@ -78,9 +61,8 @@ public struct BackendRequest {
             queryItems: queryItems ?? self.queryItems,
             headers: headers ?? self.headers,
             contentType: contentType ?? self.contentType,
+            cachePolicy: cachePolicy ?? self.cachePolicy,
             data: data ?? self.data,
-            attachSession: attachSession ?? self.attachSession,
-            explicitSession: explicitSession ?? self.explicitSession,
             retriesStrategy: retriesStrategy ?? self.retriesStrategy
         )
     }

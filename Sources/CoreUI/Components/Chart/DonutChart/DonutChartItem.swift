@@ -2,8 +2,10 @@
 //  Created by Daniel Pustotin on 19.12.2024
 //
 
+import Foundation
+
 @available(iOS 17.0, *)
-public struct DonutChartItem: Identifiable, Equatable, Sendable {
+public struct DonutChartItem: Identifiable, Sendable, Equatable {
     public let id = UUID()
     public let label: String
     public let value: Double

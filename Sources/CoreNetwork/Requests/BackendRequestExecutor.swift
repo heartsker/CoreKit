@@ -2,12 +2,14 @@
 //  Created by Daniel Pustotin on 11.03.2023.
 //
 
+import Foundation
+
 /// Builds and executes backend requests
-public protocol BackendRequestExecuting {
+public protocol BackendRequestExecuting: Sendable {
     @discardableResult
     func execute(
         request: BackendRequest
-    ) async throws -> GenericResult<Data>
+    ) async throws -> Data
 }
 
 final public class BackendRequestExecutor: BackendRequestExecuting {
@@ -28,10 +30,10 @@ final public class BackendRequestExecutor: BackendRequestExecuting {
 
     // MARK: - Methods
 
-    public func execute(request: BackendRequest) async throws -> GenericResult<Data> {
+    public func execute(request: BackendRequest) async throws -> Data {
         let (urlRequest, data) = try request.buildURLRequest()
 
-        return await Task<Data, Error>.retrying(
+        let result = await Task<Data, Error>.retrying(
             retryStrategy: request.retriesStrategy
         ) { [weak self] in
             guard let self else {
@@ -45,6 +47,11 @@ final public class BackendRequestExecutor: BackendRequestExecuting {
 
             return data
         }.result
+
+        return switch result {
+        case .success(let data): data
+        case .failure(let error): throw error
+        }
     }
 
     private func execute(

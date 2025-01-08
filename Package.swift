@@ -110,7 +110,8 @@ let package = Package(
             name: "CoreRedux",
             dependencies: [
                 "CoreLogger",
-                "CoreTypes"
+                "CoreTypes",
+                "CoreUtils"
             ]
         ),
 		.target(name: "CoreTypes"),

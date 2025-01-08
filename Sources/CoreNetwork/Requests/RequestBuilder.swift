@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class RequestBuilder {
+public final class RequestBuilder {
     // MARK: - Constructor
 
     private init(backendRequest: BackendRequest) {
@@ -18,129 +18,68 @@ final class RequestBuilder {
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(method: HttpMethod) -> RequestBuilder {
-        backendRequest = backendRequest.copy(method: method)
-=======
     public func with(method: HttpMethod) -> RequestBuilder {
-        backendRequest.apply { $0.method = method }
->>>>>>> Stashed changes
+        backendRequest = backendRequest.copy(method: method)
         return self
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(data: RequestDataRepresentable?) -> RequestBuilder {
+    public func with(data: RequestDataRepresentable?) -> RequestBuilder {
         backendRequest = backendRequest.copy(data: data)
-=======
-    public func with(data: Encodable?) -> RequestBuilder {
-        backendRequest.apply { $0.data = data }
->>>>>>> Stashed changes
         return self
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(contentType: RequestContentType) -> RequestBuilder {
-        backendRequest = backendRequest.copy(contentType: contentType)
-=======
     public func with(contentType: RequestContentType) -> RequestBuilder {
-        backendRequest.apply { $0.contentType = contentType }
->>>>>>> Stashed changes
+        backendRequest = backendRequest.copy(contentType: contentType)
         return self
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(queryItem name: String, value: CustomStringConvertible?) -> RequestBuilder {
-        var queryItems = backendRequest.queryItems
-        queryItems.append(
-            URLQueryItem(name: name, value: value?.description)
-        )
-        backendRequest = backendRequest.copy(queryItems: queryItems)
-=======
     public func with(cachePolicy: CachePolicy) -> RequestBuilder {
-        backendRequest.apply { $0.cachePolicy = cachePolicy }
+        backendRequest = backendRequest.copy(cachePolicy: cachePolicy)
         return self
     }
 
     @discardableResult
     public func with(queryItem name: String, value: CustomStringConvertible?) -> RequestBuilder {
-        backendRequest.apply { request in
-            request.queryItems.append(
-                URLQueryItem(name: name, value: value?.description)
-            )
-        }
->>>>>>> Stashed changes
-        return self
-    }
-
-    @discardableResult
-<<<<<<< Updated upstream
-    func with(queryItems: [URLQueryItem]) -> RequestBuilder {
+        var queryItems = backendRequest.queryItems
+        queryItems.append(
+            URLQueryItem(name: name, value: value?.description)
+        )
         backendRequest = backendRequest.copy(queryItems: queryItems)
-=======
-    public func with(queryItems: [URLQueryItem]) -> RequestBuilder {
-        backendRequest.apply { $0.queryItems = queryItems }
->>>>>>> Stashed changes
         return self
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(header: String, value: String) -> RequestBuilder {
+    public func with(queryItems: [URLQueryItem]) -> RequestBuilder {
+        backendRequest = backendRequest.copy(queryItems: queryItems)
+        return self
+    }
+
+    @discardableResult
+    public func with(header: String, value: String) -> RequestBuilder {
         var headers = backendRequest.headers
         headers[header] = value
         backendRequest = backendRequest.copy(headers: headers)
-=======
-    public func with(header: String, value: String) -> RequestBuilder {
-        backendRequest.apply { $0.headers[header] = value }
->>>>>>> Stashed changes
         return self
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(headers: [String: String]) -> RequestBuilder {
-        backendRequest = backendRequest.copy(headers: headers)
-=======
     public func with(headers: [String: String]) -> RequestBuilder {
-        backendRequest.apply { $0.headers = headers }
->>>>>>> Stashed changes
+        backendRequest = backendRequest.copy(headers: headers)
         return self
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(timeout: TimeInterval) -> RequestBuilder {
-        backendRequest = backendRequest.copy(timeout: timeout)
-=======
     public func with(timeout: TimeInterval) -> RequestBuilder {
-        backendRequest.apply { $0.timeout = timeout }
->>>>>>> Stashed changes
+        backendRequest = backendRequest.copy(timeout: timeout)
         return self
     }
 
     @discardableResult
-<<<<<<< Updated upstream
-    func with(attachSession: Bool) -> RequestBuilder {
-        backendRequest = backendRequest.copy(attachSession: attachSession)
-        return self
-    }
-
-    @discardableResult
-    func with(explicitSession: AuthSession) -> RequestBuilder {
-        backendRequest = backendRequest.copy(explicitSession: explicitSession)
-        return self
-    }
-
-    @discardableResult
-    func with(retriesStrategy: RetryStrategy) -> RequestBuilder {
-        backendRequest = backendRequest.copy(retriesStrategy: retriesStrategy)
-=======
     public func with(retriesStrategy: RetryStrategy) -> RequestBuilder {
-        backendRequest.apply { $0.retriesStrategy = retriesStrategy }
->>>>>>> Stashed changes
+        backendRequest = backendRequest.copy(retriesStrategy: retriesStrategy)
         return self
     }
 

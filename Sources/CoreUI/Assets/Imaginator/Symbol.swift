@@ -4,7 +4,7 @@
 
 
 public extension Imaginator {
-    enum Symbol: String {
+    enum Symbol: String, Sendable {
         /// Image of 􀄪
         case leftArrow = "arrow.left"
         /// Image of 􀄫

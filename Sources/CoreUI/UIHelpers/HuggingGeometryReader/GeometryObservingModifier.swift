@@ -2,10 +2,6 @@
 //  Created by Daniel Pustotin on 13.06.2023.
 //
 
-<<<<<<< Updated upstream
-=======
-import CoreTypes
->>>>>>> Stashed changes
 import SwiftUI
 
 private struct GeometryObservingModifier: ViewModifier {

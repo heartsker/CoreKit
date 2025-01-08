@@ -2,11 +2,7 @@
 //  Created by Daniel Pustotin on 15.05.2023.
 //
 
-<<<<<<< Updated upstream
-protocol Endpoint: Loggable, Sendable {
-=======
-public protocol Endpoint: Loggable {
->>>>>>> Stashed changes
+public protocol Endpoint: Loggable, Sendable {
     var component: EndpointComponent { get }
 
     static var baseEndpoint: BaseEndpoint? { get }
@@ -56,7 +52,7 @@ private extension Endpoint {
 }
 
 extension Endpoint where Self: RawRepresentable, RawValue: EndpointComponent {
-    var component: EndpointComponent {
+    public var component: EndpointComponent {
         rawValue
     }
 }

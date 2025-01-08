@@ -4,6 +4,7 @@
 
 public enum PropertyListKey {
     case buildConfiguration
+    case apiUrl
     case other(key: String)
 
     // MARK: - Public properties
