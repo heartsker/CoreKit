@@ -14,14 +14,10 @@ public enum FontSize: CGFloat, Sendable {
     case s = 15
     /// Medium font size (17 pt)
     case m = 17
-    /// Large font size (28 pt)
-    case l = 28
-    /// Extra large font size (34 pt)
-    case xl = 34
-    /// Extra extra large font size (45 pt)
-    case xxl = 45
-    /// Extra extra extra large font size (73 pt)
-    case xxxl = 73
-    /// Extra 4x large font size (118 pt)
-    case x4l = 118
+    /// Large font size (22 pt)
+    case l = 22
+    /// Extra large font size (28 pt)
+    case xl = 28
+    /// Extra extra large font size (34 pt)
+    case xxl = 34
 }

@@ -5,10 +5,10 @@
 import Combine
 import Foundation
 
-public protocol StoreRepresentable: StateProvider, Dispatcher, Scoper, EpicRegisterable, ObservableObject {}
+public protocol StoreRepresentable: StateProvider, Dispatcher, Scoper, EpicRegisterable, ObservableObject, Sendable {}
 public typealias ScopedStore<Reducer: ReducerRepresentable> = Store<Scope<Reducer>>
 
-public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
+public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable, @unchecked Sendable {
     // MARK: - Properties
 
     public typealias State = StoreScope.State
@@ -29,6 +29,7 @@ public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
     private weak var parentDispatcher: Dispatcher?
 
     private var cancellables = Set<AnyCancellable>()
+    private let lock = UnfairLock()
 
     // MARK: - Constructor
 
@@ -52,7 +53,9 @@ public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
         let dispatch: Dispatch = { [weak self] action in
             guard let self else { return }
 
-            reducer.reduce(&state, action: action)
+            lock.locked {
+                reducer.reduce(&state, action: action)
+            }
 
             if let parentDispatcher, let parentActionMapper {
                 parentDispatcher.dispatch(action: parentActionMapper(action))
@@ -89,7 +92,7 @@ public final class Store<StoreScope: ScopeRepresentable>: StoreRepresentable {
     ) -> Store<ChildScope> where ChildScope: ScopeRepresentable {
         Store<ChildScope>(
             scope: scope,
-            initialState: childStateMapper(state),
+            initialState: childStateMapper(lock.locked(state)),
             middlewares: middlewares,
             parentActionMapper: parentActionMapper,
             parentDispatcher: self

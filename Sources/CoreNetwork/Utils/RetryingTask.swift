@@ -14,6 +14,9 @@ extension Task where Failure == Error {
                 do {
                     return try await operation()
                 } catch {
+                    guard retryStrategy.shouldRetry else {
+                        break
+                    }
                     try await Task<Never, Never>.sleep(for: .milliseconds(retryStrategy.nextRetryInterval()))
                 }
             }

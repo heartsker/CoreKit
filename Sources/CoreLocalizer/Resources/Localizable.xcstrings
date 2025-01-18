@@ -19,8 +19,17 @@
     "Edit" : {
       "comment" : "Edit"
     },
+    "Error occured" : {
+      "comment" : "Error occured"
+    },
     "Ok" : {
       "comment" : "Ok"
+    },
+    "Oops! Something went wrong" : {
+      "comment" : "Oops! Something went wrong"
+    },
+    "Retry" : {
+      "comment" : "Retry"
     }
   },
   "version" : "1.0"

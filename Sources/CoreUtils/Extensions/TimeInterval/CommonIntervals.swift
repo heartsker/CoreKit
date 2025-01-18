@@ -33,4 +33,6 @@ public extension TimeInterval {
     static let twoWeeks: TimeInterval = 14 * .day
     /// 30 days
     static let month: TimeInterval = 30.0 * .day
+    /// 365 days
+    static let year: TimeInterval = 365.0 * .day
 }

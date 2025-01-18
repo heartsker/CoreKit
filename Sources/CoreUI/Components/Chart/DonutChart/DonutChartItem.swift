@@ -5,8 +5,8 @@
 import Foundation
 
 @available(iOS 17.0, *)
-public struct DonutChartItem: Identifiable, Sendable, Equatable {
-    public let id = UUID()
+public struct DonutChartItem: Codable, Identifiable, Sendable, Equatable {
+    public private(set) var id = UUID()
     public let label: String
     public let value: Double
 

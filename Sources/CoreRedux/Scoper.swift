@@ -16,9 +16,10 @@ public protocol Scoper {
 public extension Scoper {
     func scope<ChildScope>(
         with scope: ChildScope,
+        middlewares: [Middleware] = [],
         _ childStateMapper: @escaping SendableMapper<State, ChildScope.State>,
-        _ parentActionMapper: SendableModifier<any ActionRepresentable>?
+        _ parentActionMapper: SendableModifier<any ActionRepresentable>? = nil
     ) -> Store<ChildScope> where ChildScope: ScopeRepresentable {
-        self.scope(with: scope, middlewares: [], childStateMapper, parentActionMapper)
+        self.scope(with: scope, middlewares: middlewares, childStateMapper, parentActionMapper)
     }
 }
