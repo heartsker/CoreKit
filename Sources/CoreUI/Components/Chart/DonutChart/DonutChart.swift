@@ -33,42 +33,40 @@ public struct DonutChart: View {
     }
 
     public var body: some View {
-        VStack {
-            Chart(items) { item in
-                let isSelected = item == selectedItem
-                let isDeselected = selectedItem != nil && !isSelected
-                let innerRatio = if isSelected, let selectedItemStyle = style.selectedItemStyle {
-                    selectedItemStyle.innerRadius
-                } else {
-                    style.innerRadius
-                }
-                let outerRatio = if isSelected, let selectedItemStyle = style.selectedItemStyle {
-                    selectedItemStyle.outerRadius
-                } else {
-                    style.outerRadius
-                }
-
-                SectorMark(
-                    angle: .value(Const.valueKey, item.value),
-                    innerRadius: innerRatio,
-                    outerRadius: outerRatio,
-                    angularInset: style.inset
-                )
-                .cornerRadius(style.cornerRadius)
-                .foregroundStyle(by: .value(Const.itemKey, item.label))
-                .opacity(isDeselected ? style.selectedItemStyle?.deselectedOpacity ?? 1 : 1)
+        Chart(items) { item in
+            let isSelected = item == selectedItem
+            let isDeselected = selectedItem != nil && !isSelected
+            let innerRatio = if isSelected, let selectedItemStyle = style.selectedItemStyle {
+                selectedItemStyle.innerRadius
+            } else {
+                style.innerRadius
             }
-            .chartAngleSelection(value: $selectedValue)
-            .scaledToFit()
-            .onChange(of: selectedValue) { oldValue, newValue in
-                guard let selectedValue,
-                      let selectedIndex = ranges.firstIndex(where: { $0.contains(selectedValue) }) else {
-                    selectedItem = nil
-                    return
-                }
-
-                selectedItem = items[selectedIndex]
+            let outerRatio = if isSelected, let selectedItemStyle = style.selectedItemStyle {
+                selectedItemStyle.outerRadius
+            } else {
+                style.outerRadius
             }
+
+            SectorMark(
+                angle: .value(Const.valueKey, item.value),
+                innerRadius: innerRatio,
+                outerRadius: outerRatio,
+                angularInset: style.inset
+            )
+            .cornerRadius(style.cornerRadius)
+            .foregroundStyle(by: .value(Const.itemKey, item.label))
+            .opacity(isDeselected ? style.selectedItemStyle?.deselectedOpacity ?? 1 : 1)
+        }
+        .chartAngleSelection(value: $selectedValue)
+        .scaledToFit()
+        .onChange(of: selectedValue) { oldValue, newValue in
+            guard let selectedValue,
+                  let selectedIndex = ranges.firstIndex(where: { $0.contains(selectedValue) }) else {
+                selectedItem = nil
+                return
+            }
+
+            selectedItem = items[selectedIndex]
         }
     }
 

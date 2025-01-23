@@ -22,6 +22,13 @@ public protocol ColorPalette {
     /// Tertiary background color for grouped content
     static var backgroundGroupedTertiary: Color { get }
 
+    /// Primary background color for combined grouped content
+    static var backgroundGroupedCombinedPrimary: Color { get }
+    /// Secondary background color for combined grouped content
+    static var backgroundGroupedCombinedSecondary: Color { get }
+    /// Tertiary background color for combined grouped content
+    static var backgroundGroupedCombinedTertiary: Color { get }
+
     // MARK: - Brand
 
     /// Accent color

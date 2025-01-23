@@ -17,6 +17,10 @@ public extension ColorPalette {
     static var backgroundGroupedSecondary: Color { color("background-grouped-secondary") }
     static var backgroundGroupedTertiary: Color { color("background-grouped-tertiary") }
 
+    static var backgroundGroupedCombinedPrimary: Color { color("background-grouped-combined-primary") }
+    static var backgroundGroupedCombinedSecondary: Color { color("background-grouped-combined-secondary") }
+    static var backgroundGroupedCombinedTertiary: Color { color("background-grouped-combined-tertiary") }
+
     // MARK: Brand
 
     static var accent: Color { color("accent") }
